@@ -29,19 +29,28 @@ Aşağıda istenilen sonuçlara ulaşabilmek için gerekli SQL sorgularını yaz
 
 	1) ÖRNEK SORU: Yazar tablosunu KEMAL UYUMAZ isimli yazarı ekleyin.
 	
-
+		insert into yazar (yazarad,yazarsoyad) values ("KEMAL","UYUMAZ")
 	
 	2) Biyografi türünü tür tablosuna ekleyiniz.
 	
+ 		insert into tur (turadi) values ("Biyografi")
 	
 	3) 10A sınıfı olan ÇAĞLAR ÜZÜMCÜ isimli erkek, sınıfı 9B olan LEYLA ALAGÖZ isimli kız ve sınıfı 11C olan Ayşe Bektaş isimli kız öğrencileri tek sorguda ekleyin. 
 	
+		insert into ogrenci (sinif,ograd,ogrsoyad,cinsiyet) 
+		values  ("10A","Çağlar","Üzümcü","E"),	
+			("9B","Leyla","Alagöz","K"),
+			("11C","Ayşe","Bektaş","K")
 	
 	4) Öğrenci tablosundaki rastgele bir öğrenciyi yazarlar tablosuna yazar olarak ekleyiniz.
-	
+
+		insert into yazar (yazarad,yazarsoyad)
+        select ograd, ogrsoyad from ogrenci order by rand() limit 1
 	
 	5) Öğrenci numarası 10 ile 30 arasındaki öğrencileri yazar olarak ekleyiniz.
-	
+
+		insert into yazar (yazarad,yazarsoyad)
+		(select ograd,ogrsoyad from ogrenci where ogrno between 10 and 30);
 	
 	6) Nurettin Belek isimli yazarı ekleyip yazar numarasını yazdırınız.
 	(Not: Otomatik arttırmada son arttırılan değer @@IDENTITY değişkeni içinde tutulur.)

@@ -55,32 +55,64 @@ Aşağıda istenilen sonuçlara ulaşabilmek için gerekli SQL sorgularını yaz
 	6) Nurettin Belek isimli yazarı ekleyip yazar numarasını yazdırınız.
 	(Not: Otomatik arttırmada son arttırılan değer @@IDENTITY değişkeni içinde tutulur.)
 	
+		insert into yazar (yazarad,yazarsoyad) values ("Nurettin","Belek")
+		select @@IDENTITY
+	
 	
 	7) 10B sınıfındaki öğrenci numarası 3 olan öğrenciyi 10C sınıfına geçirin.
+	
+		update ogrenci 
+		set sinif = "10C" 
+		where ogrno = 3
 	
 	
 	8) 9A sınıfındaki tüm öğrencileri 10A sınıfına aktarın
 	
+		update ogrenci
+		set sinif = '10A'
+		where sinif = '9A'
+	
 	
 	9) Tüm öğrencilerin puanını 5 puan arttırın.
 	
+		update ogrenci
+		set puan = puan + 5
+	
 	
 	10) 25 numaralı yazarı silin.
+		
+		delete yazar
+		where yazarno = 25
 
 
 	11) Doğum tarihi null olan öğrencileri listeleyin. (insert sorgusu ile girilen 3 öğrenci listelenecektir)
 	
+		select * from ogrenci
+		where dtarih is null
+	
 	
 	12) Doğum tarihi null olan öğrencileri silin. 
-	
+		
+		delete from ogrenci
+	    where dtarih is null
 	
 	13) Kitap tablosunda adı a ile başlayan kitapların puanlarını 2 artırın.
+		
+		update kitap
+		set puan = puan + 2
+		where kitapadi like 'a%'
 	
 	
 	14) Kişisel Gelişim isimli bir tür oluşturun.
 	
-	
+		insert into tur (turadi)
+		values ("Kişisel Gelişim")
+		
 	15) Kitap tablosundaki Başarı Rehberi kitabının türünü bu tür ile değiştirin.
+	
+		update kitap
+		set turno=(select turno from tur where turadi = "Kişisel Gelişim")
+		where kitapadi = 'Başarı Rehberi'
 	
 	
 	16) Öğrenci tablosunu kontrol etmek amaçlı tüm öğrencileri görüntüleyen "ogrencilistesi" adında bir prosedür oluşturun.

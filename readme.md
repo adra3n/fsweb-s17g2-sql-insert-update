@@ -117,32 +117,90 @@ Aşağıda istenilen sonuçlara ulaşabilmek için gerekli SQL sorgularını yaz
 	
 	16) Öğrenci tablosunu kontrol etmek amaçlı tüm öğrencileri görüntüleyen "ogrencilistesi" adında bir prosedür oluşturun.
 	
+		create procedure  ogrencilistesi()
+		begin
+		select * from ogrenci;
+		end
+		
 	
 	17) Öğrenci tablosuna yeni öğrenci eklemek için "ekle" adında bir prosedür oluşturun.
-	
+		
+		create procedure ekle(
+		IN ad varchar(30),
+		IN soyad varchar(30),
+		IN cinsiyet varchar(10),
+		IN sinif varchar(6),
+		IN numara smallint(10)
+		)
+		BEGIN
+		insert into ogrenci (ograd, ogrsoyad, cinsiyet, sinif, ogrno)
+		values
+		(ad, soyad, cinsiyet, sinif, numara);
+		END
 	
 	18) Öğrenci noya göre öğrenci silebilmeyi sağlayan "sil" adında bir prosedür oluşturun.
 	
-	
+		create procedure sil(
+		IN numara smallint(10)
+		)
+		BEGIN
+		delete from ogrenci
+		where ogrno = numara;
+		END
+		
 	19) Öğrenci numarasını kullanarak kolay bir biçimde öğrencinin sınıfını değiştirebileceğimiz bir prosedür oluşturun.
 	
+		create procedure ogrenciSinifDegistir(
+		IN numara smallint(10),
+		IN yeniSinif varchar(6),
+		)
+		BEGIN
+		update ogrenci
+		set sinif = yeniSinif
+		where ogrno = numara;
+		END
 	
 	20) Öğrenci adı ve soyadını "Ad Soyad" olarak birleştirip, ad soyada göre kolayca arama yapmayı sağlayan bir prosedür yazın.
 	
+		create procedure adSoyadAra(
+		IN ad varchar(30),
+		IN soyad varchar(30),
+		)
+		BEGIN
+		select concat(ograd, ogrsoyad) as 'Adi Soyadi' from ogrenci
+		where ograd = ad and ogrsoyad = soyad;
+		END
 	
 	21) Daha önceden oluşturduğunu tüm prosedürleri silin.
-	
+
+		DROP PROCEDURE IF EXISTS ogrencilistesi;
+		DROP PROCEDURE IF EXISTS adSoyadAra;
+		DROP PROCEDURE IF EXISTS ekle;
+		DROP PROCEDURE IF EXISTS sil;
+		DROP PROCEDURE IF EXISTS ogrenciSinifDegistir;
 	
 	#Esnek görevler (Esnek görevlerin hepsini Select in Select ile gerçekleştirmeniz beklenmektedir.)
 	22) Select in select yöntemiyle dram türündeki kitapları listeleyiniz.
-	
+		
+		select kitapadi from kitap
+		where turno 
+		in (select turno from tur where turadi = 'Dram')
+
 	
 	23) Adı e harfi ile başlayan yazarların kitaplarını listeleyin.
 	
+		
+		select kitapadi from kitap
+		where yazarno 
+		in (select yazarno from yazar where yazarad like 'e%')
+	
 	
 	24) Kitap okumayan öğrencileri listeleyiniz.
-	
-	
+		
+		select kitapadi from ogrenci
+		where ogrno 
+		not in (select ogrno from islem)
+		
 	25) Okunmayan kitapları listeleyiniz
 
 	

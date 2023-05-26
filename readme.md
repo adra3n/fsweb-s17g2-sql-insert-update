@@ -197,7 +197,8 @@ Aşağıda istenilen sonuçlara ulaşabilmek için gerekli SQL sorgularını yaz
 	
 	24) Kitap okumayan öğrencileri listeleyiniz.
 		
-		select kitapadi from ogrenci
+		select kitapadi 
+		from ogrenci
 		where ogrno 
 		not in (select ogrno from islem)
 		

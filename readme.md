@@ -203,6 +203,17 @@ Aşağıda istenilen sonuçlara ulaşabilmek için gerekli SQL sorgularını yaz
 		not in (select ogrno from islem)
 		
 	25) Okunmayan kitapları listeleyiniz
+		
+		select kitapadi
+		from kitap
+		where kitapno 
+		not in (select kitapno from islem);
 
 	
 	26) Mayıs ayında okunmayan kitapları listeleyiniz.
+	
+		select kitapadi
+		from kitap
+		where kitapno 
+		not in (select kitapno from islem)
+		and atarih like '2006-05-%';
